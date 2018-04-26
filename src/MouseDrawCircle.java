@@ -4,17 +4,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class MouseDrawCircle extends JPanel implements MouseListener, MouseMotionListener {
     public ArrayList<MyCircle> circles = new ArrayList<MyCircle>();
     public Color drawingColor = Color.black;
+    public HashMap<String, String> map;
 
 
     public MouseDrawCircle() {
         setBackground(Color.BLACK);
         addMouseListener(this);
         addMouseMotionListener(this);
+        map = new HashMap<>();
     }
 
     public void mousePressed(MouseEvent evt) {

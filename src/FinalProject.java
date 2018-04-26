@@ -159,6 +159,7 @@ public class FinalProject {
             public void actionPerformed(ActionEvent e){
 
                 drawWidget2.circles.clear();
+                drawWidget2.map.clear();
                 drawWidget2.repaint();
                 authorTextField.setText("");
                 filenameTextField.setText("");
@@ -177,10 +178,13 @@ public class FinalProject {
         String value = chooseColor.getSelectedItem().toString();
         return value;
     }
-    public static void writeCirclesToFile(ArrayList<MouseDrawCircle.MyCircle> circles, String filename, String author){
+    public static void writeCirclesToFile(ArrayList<MouseDrawCircle.MyCircle> circles, String filename, String author, MouseDrawCircle drawingwidget){
         try {
             PrintWriter writer = new PrintWriter(filename, "UTF-8");
-            writer.println(author);
+            Set<String> keys = drawingwidget.map.keySet();
+            for(String name: keys){
+                writer.println(name+"_"+drawingwidget.map.get(name));
+            }
 
             for(int i = 0; i < circles.size(); i++){
                 writer.println(i + "|" + circles.get(i));

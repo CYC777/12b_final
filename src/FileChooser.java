@@ -23,6 +23,7 @@ public class FileChooser extends JFrame implements ActionListener{
     private Map<String,String> map;
     private MouseDrawCircle drawWidget2;
     private String choosertitle;
+    private String filenameInfile;
 
 
     public FileChooser(String option, MouseDrawCircle drawWidget){
@@ -101,7 +102,8 @@ public class FileChooser extends JFrame implements ActionListener{
         if (author == null || author.length() == 0) {
             author = "Unknown";
         }
-        FinalProject.writeCirclesToFile(drawWidget2.circles, path + "/" + filename + ".cyc", author);
+        drawWidget2.map.put(author, filename);
+        FinalProject.writeCirclesToFile(drawWidget2.circles, path + "/" + filename + ".cyc", author, drawWidget2);
     }
     private void openFile() {
         readFile();
@@ -110,8 +112,11 @@ public class FileChooser extends JFrame implements ActionListener{
         String filename = curFile.getName();
         filename = filename.substring(0, filename.length() - 4);
         System.out.println("filename " + filename);
+        drawWidget2.map.clear();
+        drawWidget2.map.put(author, filename);
         FinalProject.filenameTextField.setText(filename);
         drawWidget2.circles.clear();
+
         drawWidget2.circles = new ArrayList<>(pCircles);
         drawWidget2.repaint();
 
@@ -125,7 +130,10 @@ public class FileChooser extends JFrame implements ActionListener{
                 String line = scanner.nextLine();
                 int delimiter = line.indexOf("|");
                 if (delimiter == -1) {
-                    author = line;
+                    int delimiter2 = line.indexOf("_");
+                    author = line.substring(0,delimiter2);
+                    filenameInfile = line.substring(delimiter2+1);
+
                     continue;
                 }
                 String key = line.substring(0,delimiter);
