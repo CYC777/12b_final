@@ -133,6 +133,7 @@ public class FileChooser extends JFrame implements ActionListener{
                     int delimiter2 = line.indexOf("_");
                     author = line.substring(0,delimiter2);
                     filenameInfile = line.substring(delimiter2+1);
+                    System.out.println("filename 136" + filenameInfile);
 
                     continue;
                 }
@@ -149,8 +150,10 @@ public class FileChooser extends JFrame implements ActionListener{
 
     private void convertToMyCircle() {
         Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
+        pCircles.clear();
         while (it.hasNext()) {
             Map.Entry<String, String> entry = it.next();
+            System.out.println("map entry ");
 //            System.out.println("entry.key=" + entry.getKey());
             String[] param = entry.getValue().split("_");
             double x = Double.parseDouble(param[0]);
